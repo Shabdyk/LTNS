@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Converter</title>
+    <!-- <link rel="stylesheet" href="./style.css"> -->
+</head>
+<body>
+
+    <h1>Converter</h1>
+
+    <!-- Upload Button -->
+    <form id="uploadForm" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" id="fileInput" name="files" multiple="multiple" accept=".avi,.mp4">
+        <button type="submit">Upload</button>
+    </form>
+
+    <!-- Box with list of uploaded files -->
+    <h3>Uploaded Files</h3>
+    <div id="uploadedFilesBox" class="box">
+        <!-- Uploaded files will be dynamically listed here -->
+        <ul>
+            <!-- {% for file in user_files %}
+                <li>{{ choice.choice_text }}</li>
+            {% endfor %} -->
+        </ul>
+
+    </div>
+
+    <!-- File type filter buttons -->
+    <button id="AVI">to AVI</button>
+    <button id="MP4">to MP4</button>
+    <!-- Download button -->
+    <button id="downloadButton">Convert</button>
+
+    <!-- Box for selecting files to download -->
+    <h3>Selected for Download</h3>
+    <div id="selectedFilesBox" class="box">
+        <!-- Selected files for download will appear here -->
+    </div>
+
+    <!-- Download button -->
+    <button id="downloadButton">Download</button>
+
+    <!-- <script>
+        // JavaScript for handling dynamic interaction
+       
+
+        // Handle the file upload form submission
+        
+        
+    </script> -->
+
+</body>
+</html>

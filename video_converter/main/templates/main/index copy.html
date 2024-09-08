@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Converter</title>
+    <!-- <link rel="stylesheet" href="./style.css"> -->
+</head>
+<body>
+
+    <h1>Converter</h1>
+
+    <!-- Upload Button -->
+    <form id="uploadForm" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" id="fileInput" name="file">
+        <button type="submit">Upload</button>
+    </form>
+
+    <!-- Box with list of uploaded files -->
+    <h3>Uploaded Files</h3>
+    <div id="uploadedFilesBox" class="box">
+        <!-- Uploaded files will be dynamically listed here -->
+    </div>
+
+    <!-- File type filter buttons -->
+    <button id="AVI">AVI</button>
+    <button id="MP4">MP4</button>
+
+    <!-- Box for selecting files to download -->
+    <h3>Selected for Download</h3>
+    <div id="selectedFilesBox" class="box">
+        <!-- Selected files for download will appear here -->
+    </div>
+
+    <!-- Download button -->
+    <button id="downloadButton">Download</button>
+
+    <script>
+        // JavaScript for handling dynamic interaction
+        document.getElementById('uploadForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+
+    // Send the file to the backend via AJAX
+    fetch('', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Update the uploaded files list
+            updateUploadedFiles(data.files);
+        }
+    });
+});
+
+// Function to update the list of uploaded files dynamically
+function updateUploadedFiles(files) {
+    const uploadedFilesBox = document.getElementById('uploadedFilesBox');
+    uploadedFilesBox.innerHTML = ''; // Clear the current list
+
+    files.forEach(file => {
+        const fileItem = document.createElement('div');
+        fileItem.classList.add('file-list-item');
+        fileItem.textContent = file.name;
+        fileItem.addEventListener('click', function() {
+            selectFileForDownload(file);
+        });
+        uploadedFilesBox.appendChild(fileItem);
+    });
+}
+
+// Function to select a file for download
+function selectFileForDownload(file) {
+    const selectedFilesBox = document.getElementById('selectedFilesBox');
+    const fileItem = document.createElement('div');
+    fileItem.classList.add('file-list-item');
+    fileItem.textContent = file.name;
+    selectedFilesBox.appendChild(fileItem);
+}
+
+// Filters for file types (AVI/MP4)
+document.getElementById('AVI').addEventListener('click', function() {
+
+});
+document.getElementById('MP4').addEventListener('click', function() {
+
+});
+
+        // Handle the file upload form submission
+        
+        
+    </script>
+
+</body>
+</html>
